@@ -41,7 +41,7 @@ function copyObject(obj) {
   obj = {
     ...animal,
   }
-  return animal;
+  return obj;
   // Використовуємо синтаксис деструктурізації {...person} для створення нового об'єкта з тими ж властивостями
   // Повертаємо новий об'єкт
 }
@@ -103,7 +103,7 @@ let movie = {
 };
 // Функція для видалення властивості з об'єкта
 function deleteProperty(obj, property) {
-  delete movie.director
+  delete obj[property];
   return obj
   // Використовуємо оператор "delete" для видалення властивості
   // Повертаємо об'єкт
@@ -137,8 +137,8 @@ let book = {
 
 // Функція для додавання нового поля до об'єкту
 function addField(obj, newField, value) {
-  book['year'] = 1960
-  return book;
+  obj[newField] = value
+  return obj;
   // Додаємо нове поле до об'єкту з допомогою квадратних дужок
   // Повертаємо об'єкт
 }
@@ -170,8 +170,9 @@ let userList = [
 ];
 // Функція для зміни ролі всіх осіб у масиві
 function changeRole(array, newRole) {  
-  for (let value of userList) {
+  for (let value of array) {
     value.role = newRole;
+    console.log(value)    
   }    
   // Ітеруємося по масиву об'єктів за допомогою циклу "for of"
   // Змінюємо роль кожного користувача на нове ім'я
@@ -180,7 +181,7 @@ function changeRole(array, newRole) {
 }
 
 console.log("Завдання 10 ====================================");
-console.log(userList);
+// console.log(userList);
 changeRole(userList, "editor");
 // Виведе
 // { name: 'Jack', role: 'editor' }
@@ -198,7 +199,9 @@ let product = {
 };
 // Функція для виводу деталей людини
 function printProductDetails(obj) {
-  let {productName, price} = product
+  let { productName, price, manufacturer: {companyName, country}} = obj;
+  console.log(productName, price, companyName, country)
+  return obj
   // Використовуємо деструктуризацію для отримання значень productName, price i також значень companyName, country вкладеного об'єкту manufacturer
   // Виводимо productName, price, companyName та country на консоль
 }
@@ -216,9 +219,9 @@ let planet2 = { name: "Земля", radius: 6371 };
 
 // Функція для перевірки рівності об'єктів
 function compareObjects(obj1, obj2) {
-
-  // let equals = isEqual(obj1, obj2)
-  // return equals
+  console.log(obj1 === obj2);
+  obj2 = obj1; 
+  console.log(obj1 === obj2); 
   // Виводимо результат порівняння об'єктів
   // Присвоємо obj2 значення об'єкту obj1
   // Виводимо результат порівняння об'єктів
@@ -251,14 +254,15 @@ console.log(showCarInfo(car)); // Виведе { brand: 'BMW', year: 2022, count
 
 // Завдання 14: Додайте нову властивість до вбудованого об'єкту Array через літерал.
 // Створюємо функцію, яка буде додавати нову властивість до масиву
-function addProperty(array) {
-  let customProperty =
+function addProperty(array) { 
+  Array.prototype.customProperty = "myProperty";
   // Додаємо нову властивість customProperty до прототипу Array зі значенням myProperty
   // Повертаємо переданий масив з новою властивістю
+ return array;
 }
 
 console.log("Завдання 14 ====================================");
 // Створимо масив newArr з новою властивістю за допомогої нашої функції в яку передамо [1, 2, 3, 4, 5]
-
+let newArr = addProperty([1, 2, 3, 4, 5]);
 // Розкоментуйте рядок нижче після виконня завдання для перевірки
-// console.log(newArr.customProperty); // Виведе myProperty
+console.log(newArr.customProperty); // Виведе myProperty
